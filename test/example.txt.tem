@@ -1,0 +1,5 @@
+我的名字叫${name}，今年\${age}岁了，来自${university}，\${back_slash}。
+其他的没什么好说的，${dont_have_this_var}下面来一段自我介绍：
+${self-introduction}，\${}
+
+好的，\\\\${language}我最喜欢的语言是${language}，没错，就是这个！我来自${country}，希望你喜欢我的作品！    

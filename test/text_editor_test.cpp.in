@@ -1,0 +1,82 @@
+#include <gtest/gtest.h>
+#include "text_editor.h"
+
+using namespace TC;
+
+class text_editor_test : public ::testing::Test {
+ protected:
+ text_editor_test() : editor("${PROJECT_SOURCE_DIR}/test/text1.txt") 
+ {
+ }
+
+
+  text_editor editor;
+};
+
+
+
+TEST_F(text_editor_test, load_text_test) {
+    EXPECT_TRUE(editor.load_text(true));
+}
+
+TEST_F(text_editor_test, line_size_test) {
+    EXPECT_TRUE(editor.load_text(true));
+    EXPECT_EQ(editor.line_size(), 28);
+}
+
+TEST_F(text_editor_test, save_text_test) {
+    ASSERT_TRUE(editor.load_text(true));
+    editor.set_path("${CMAKE_BINARY_DIR}/test/text1_save.txt");
+    ASSERT_TRUE(editor.save_text(true));
+}
+
+
+TEST_F(text_editor_test, get_line_test) {
+    ASSERT_TRUE(editor.load_text(true));
+    std::string temp;
+    EXPECT_TRUE(editor.get_line(8, temp));
+    EXPECT_EQ(temp, "清晨送寒，原来一夜秋雨绵绵，雨横风狂，潮气弥漫四野。心中充满无奈的思绪，失望总是不期而至，何以解忧，唯有自我安慰。");
+    EXPECT_FALSE(editor.get_line(999, temp));
+    EXPECT_FALSE(editor.get_line(28, temp));
+    EXPECT_TRUE(editor.get_line(27, temp));
+}
+
+TEST_F(text_editor_test, replace_line_test) {
+    ASSERT_TRUE(editor.load_text(true));
+    std::string temp = "啊实打实的高等级晒哦";
+    std::string temp2;
+    EXPECT_TRUE(editor.replace_line(2, temp));
+    EXPECT_TRUE(editor.get_line(2, temp2));
+    EXPECT_EQ(temp, temp2);
+    EXPECT_FALSE(editor.replace_line(999, temp));
+    EXPECT_FALSE(editor.replace_line(28, temp));
+    EXPECT_TRUE(editor.replace_line(27, temp));
+    editor.set_path("${CMAKE_BINARY_DIR}/test/text1_set.txt");
+    ASSERT_TRUE(editor.save_text(true));
+}
+
+TEST_F(text_editor_test, insert_line_test) {
+    std::string temp, temp1;
+    EXPECT_TRUE( editor.insert_line(0, "afasfiojasf"));
+    EXPECT_TRUE(editor.insert_line(0,"赛季大宋i大家"));
+    editor.set_path("${CMAKE_BINARY_DIR}/test/insert_line.txt");
+    ASSERT_TRUE(editor.save_text(true));
+    editor.set_path("${PROJECT_SOURCE_DIR}/test/text1.txt");
+    ASSERT_TRUE(editor.load_text(true));
+    temp = "反思哦啊是念佛艾斯芬尼";
+    EXPECT_EQ(editor.line_size(), 28);
+    ASSERT_FALSE(editor.insert_line(29, temp));
+    ASSERT_TRUE(editor.insert_line(28, temp));
+    EXPECT_EQ(editor.line_size(), 29);
+    EXPECT_TRUE(editor.get_line(28, temp1));
+    EXPECT_EQ(temp, temp1);
+    EXPECT_TRUE(editor.insert_line(5, "a撒豆i萨芬"));
+    editor.set_path("${CMAKE_BINARY_DIR}/test/text1_insert.txt");
+    ASSERT_TRUE(editor.save_text(true));
+}
+
+TEST_F(text_editor_test, find_text_line_test) {
+    ASSERT_TRUE(editor.load_text(true));
+    EXPECT_EQ(editor.find_text_line("寒夜漫漫"), 2);
+    EXPECT_EQ(editor.find_text_line("相同的起点"), 22);
+}

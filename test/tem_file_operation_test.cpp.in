@@ -1,0 +1,17 @@
+#include <gtest/gtest.h>
+#include "tem_file_operation.h"
+
+using namespace TC;
+
+
+TEST(tem_file_operation_test, tem_translate_test) {
+    tem_file_operation tem_oper("variable.txt");
+    EXPECT_TRUE(tem_oper.set_variable("name","meng Nan"));
+    EXPECT_TRUE(tem_oper.set_variable("age","38"));
+    EXPECT_TRUE(tem_oper.set_variable("university","树人大学"));
+    EXPECT_TRUE(tem_oper.set_variable("self-introduction","我的兴趣爱好很广泛，看书，唱歌，跳舞，弹琴。没事时经常看一会儿书，弹一会儿电子琴，再跳一会舞，唱一会儿歌，很少有闲着的时候。也经常模仿电视里的歌手唱歌，有一次我听见一个歌手唱：“村里有个姑娘叫小芳……”我就试着改成了：“我家有只小猫叫小花……”其实我最喜欢的还是和小朋友们玩游戏，这可能是我们孩子共同的爱好。"));
+    EXPECT_TRUE(tem_oper.set_variable("language","c++"));
+    EXPECT_TRUE(tem_oper.set_variable("country","China"));
+    
+    EXPECT_TRUE(tem_oper.tem_translate("${PROJECT_SOURCE_DIR}/test/example.txt.tem", "example.txt"));
+}
