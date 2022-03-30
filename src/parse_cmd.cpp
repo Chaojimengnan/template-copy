@@ -1,7 +1,7 @@
 #include "parse_cmd.h"
 #include <string>
 
-namespace TC{
+namespace TC {
 
 /* Returns true if parsing succeeds, otherwise return false */
 bool parse_cmd::parsing(int argc, char* argv[], cmd_type& cmd)
@@ -9,8 +9,9 @@ bool parse_cmd::parsing(int argc, char* argv[], cmd_type& cmd)
     cmd = cmd_type::invaild_command;
     // File names with Spaces are not currently supported
     // This will be fixed in future releases
-    if (argc != 2) return false;
-    
+    if (argc != 2)
+        return false;
+
     std::string cmd_str = argv[1];
 
     if (cmd_str == "help")
@@ -40,5 +41,4 @@ bool parse_cmd::parsing(int argc, char* argv[], cmd_type& cmd)
     return false;
 }
 
-
-}//TC
+} // namespace TC

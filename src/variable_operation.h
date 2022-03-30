@@ -1,8 +1,9 @@
 #pragma once
-#include <string>
 #include <memory>
+#include <string>
+#include <unordered_map>
 
-namespace TC{
+namespace TC {
 class text_editor;
 
 class variable_operation
@@ -16,10 +17,15 @@ public:
     void set_path(const std::string& variable_path);
     bool get_variable(const std::string& var_name, std::string& var_val);
     bool set_variable(const std::string& var_name, const std::string& var_val);
+
 private:
     std::unique_ptr<text_editor> editor;
     std::string variable_path;
     bool is_modify;
 };
 
-}//TC
+extern std::unordered_map<std::string, std::string> build_in_variables;
+
+void init_build_in_variables(const std::string& source, const std::string& target);
+
+} // namespace TC

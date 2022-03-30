@@ -1,8 +1,9 @@
 #pragma once
 
-namespace TC{
+namespace TC {
 
-enum class cmd_type : int{
+enum class cmd_type : int
+{
     invaild_command = 0,
     copy_directory = 1,
     help = 2,
@@ -16,4 +17,4 @@ public:
     static bool parsing(int argc, char* argv[], cmd_type& cmd);
 };
 
-}//TC
+} // namespace TC

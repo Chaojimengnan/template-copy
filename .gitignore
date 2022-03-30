@@ -1,5 +1,6 @@
 /.vscode/
 /build/
+output
 # Based on your file system path
 /test/tem_file_operation_test.cpp
 /test/text_editor_test.cpp
